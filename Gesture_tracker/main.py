@@ -24,3 +24,23 @@ if current and current.get("is_playing"):
     print(f"Now playing: {track} by {artist}")
 else:
     print("Nothing's playing right now.")
+
+while True:
+    cmd = input(
+        "\nType a command (play, pause, next, back, up, down, quit): ").strip().lower()
+
+    if cmd == "play" or cmd == "pause":
+        pause_or_play(sp)
+    elif cmd == "next":
+        next_track(sp)
+    elif cmd == "back":
+        previous_track(sp)
+    elif cmd == "up":
+        volume_up(sp)
+    elif cmd == "down":
+        volume_down(sp)
+    elif cmd == "quit":
+        print("Exiting.")
+        break
+    else:
+        print("Didn't recognize that. Try again.")
