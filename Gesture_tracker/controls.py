@@ -10,23 +10,19 @@ def pause_or_play(sp):
 
 
 def next_track(sp):
-    sp.next_track()
-    print("Skipped to the next song.")
+    try:
+        sp.next_track()
+        print("Next track")
+    except Exception as e:
+        print("Couldn't skip —", e)
 
 
 def previous_track(sp):
-    sp.previous_track()
-    print("Went back to the last song.")
-
-
-def transfer_to_desktop(sp):
-    devices = sp.devices()
-    for d in devices['devices']:
-        if "Spotify" in d['name'] and not d['is_restricted']:
-            sp.transfer_playback(device_id=d['id'], force_play=True)
-            print(f"Switched playback to {d['name']}")
-            return
-    print("Couldn't find Spotify Desktop app.")
+    try:
+        sp.previous_track()
+        print("Previous track")
+    except Exception as e:
+        print("Couldn't go back —", e)
 
 
 def volume_up(sp):
@@ -41,7 +37,7 @@ def volume_up(sp):
         sp.volume(new_volume)
         print(f"Turned volume up to {new_volume}%.")
     else:
-        print("No music is playing right now.")
+        print("No active device found.")
 
 
 def volume_down(sp):
@@ -59,4 +55,14 @@ def volume_down(sp):
         sp.volume(new_vol)
         print(f"Turned volume down to {new_vol}%.")
     else:
-        print("NNo music is playing right now.")
+        print("No active device found.")
+
+
+def transfer_to_desktop(sp):
+    devices = sp.devices()
+    for d in devices['devices']:
+        if "Spotify" in d['name'] and not d['is_restricted']:
+            sp.transfer_playback(device_id=d['id'], force_play=True)
+            print(f"Switched playback to {d['name']}")
+            return
+    print("Couldn't find Spotify Desktop app.")
